@@ -21,7 +21,7 @@ class LinebotController < ApplicationController
 
     events = client.parse_events_from(body)
     events.each { |event|
-      user_id = event.source['userId']
+      user_id = params['events']['source']['userId']
       # generate new user, or find the user if it has already existed.
       user = User.find_or_create_by!(user_id: user_id)
       case event
