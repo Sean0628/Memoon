@@ -2,7 +2,7 @@ class LinebotController < ApplicationController
   require 'line/bot' # line-bot-api'
 
   # callbackアクションのCSRFトークン認証を無効
-  protectet_from_forgery except: :callback
+  protect_from_forgery except: :callback
 
   def client
     @client ||= Line::Bot::Client.new { |config|
@@ -30,10 +30,9 @@ class LinebotController < ApplicationController
             type: 'text',
             text: event.message['text']
           }
-          client.reply_message(event['reply_token'], message)
+          client.reply_message(event['replyToken'], message)
         end
       end
     }
-    head :ok
   end
 end
