@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails'
 gem 'line-bot-api'
 gem 'rails', '~> 5.1.6'
 gem 'pg', '>= 0.18', '< 2.0'
