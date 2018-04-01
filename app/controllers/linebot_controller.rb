@@ -37,7 +37,7 @@ class LinebotController < ApplicationController
             body = input.split("\n").drop(1).join("\n")
           # if there is not a title
           else
-            title = input[0..10]
+            title = "##{input[0..10]}"
             body = input
           end
           user.memos.create!(title: title, body: body)
