@@ -59,7 +59,6 @@ class LinebotController < ApplicationController
       end
     }
   end
-end
 
   private
   def has_title?(input)
@@ -249,3 +248,4 @@ end
     }
     return message
   end
+end
