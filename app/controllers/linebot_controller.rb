@@ -31,8 +31,8 @@ class LinebotController < ApplicationController
           input = event.message['text']
           # display all memos
           case input
-          when 'List', 'list', 'リスト', 'りすと'
-            @memos = @user.memos.limit(5)
+          when 'List', 'list', 'LIST', 'リスト', 'りすと'
+            @memos = @user.memos.limit(10)
             p generate_message(@memos)
             client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
@@ -158,7 +158,92 @@ end
                 "data": "#",
               }
             ]
-          }
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[5].title}",
+            "text": "#{memos[5].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[6].title}",
+            "text": "#{memos[6].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[7].title}",
+            "text": "#{memos[7].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[8].title}",
+            "text": "#{memos[8].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[9].title}",
+            "text": "#{memos[9].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
         ]
       }
     }
