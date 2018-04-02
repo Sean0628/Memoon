@@ -32,30 +32,32 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when input == 'list' || 'リスト' || 'りすと'
-            @memo = @user.memos.first
+            @memos = @user.memos.all
             message = {
               type: 'template',
               altText: 'メモの一覧リスト',
               template: {
                 type: 'carousel',
                 columns: [
-                  {
-                    imageBackgroundColor: '#FFFFFF',
-                    title: "#{@memo.title}",
-                    text: "#{@memo.body}",
-                    actions: [
-                      {
-                        type: 'postback',
-                        label: 'edit',
-                        data: "#",
-                      },
-                      {
-                        type: 'postback',
-                        label: 'delete',
-                        data: '#',
-                      }
-                    ]
-                  }
+                  @memos.each do |memo|
+                    {
+                      imageBackgroundColor: '#FFFFFF',
+                      title: "#{memo.title}",
+                      text: "#{memo.body}",
+                      actions: [
+                        {
+                          type: 'postback',
+                          label: 'edit',
+                          data: 'edit',
+                        },
+                        {
+                          type: 'postback',
+                          label: 'delete',
+                          data: '#',
+                        }
+                      ]
+                    }
+                  end
                 ]
               }
             }
