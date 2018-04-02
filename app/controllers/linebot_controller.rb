@@ -91,74 +91,74 @@ end
               }
             ]
           },
-          {
-            "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos[1].title}",
-            "text": "#{memos[1].body}",
-            "actions": [
-              {
-                "type": "uri",
-                "label": "edit",
-                "uri": "edit",
-              },
-              {
-                "type": "uri",
-                "label": "delete",
-                "uri": "#",
-              }
-            ]
-          },
-          {
-            "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos[2].title}",
-            "text": "#{memos[2].body}",
-            "actions": [
-              {
-                "type": "uri",
-                "label": "edit",
-                "uri": "edit",
-              },
-              {
-                "type": "uri",
-                "label": "delete",
-                "uri": "#",
-              }
-            ]
-          },
-          {
-            "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos[3].title}",
-            "text": "#{memos[3].body}",
-            "actions": [
-              {
-                "type": "uri",
-                "label": "edit",
-                "uri": "edit",
-              },
-              {
-                "type": "uri",
-                "label": "delete",
-                "uri": "#",
-              }
-            ]
-          },
-          {
-            "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos[4].title}",
-            "text": "#{memos[4].body}",
-            "actions": [
-              {
-                "type": "uri",
-                "label": "edit",
-                "uri": "edit",
-              },
-              {
-                "type": "uri",
-                "label": "delete",
-                "uri": "#",
-              }
-            ]
-          }
+#          {
+#            "imageBackgroundColor": "#FFFFFF",
+#            "title": "#{memos[1].title}",
+#            "text": "#{memos[1].body}",
+#            "actions": [
+#              {
+#                "type": "uri",
+#                "label": "edit",
+#                "uri": "edit",
+#              },
+#              {
+#                "type": "uri",
+#                "label": "delete",
+#                "uri": "#",
+#              }
+#            ]
+#          },
+#          {
+#            "imageBackgroundColor": "#FFFFFF",
+#            "title": "#{memos[2].title}",
+#            "text": "#{memos[2].body}",
+#            "actions": [
+#              {
+#                "type": "uri",
+#                "label": "edit",
+#                "uri": "edit",
+#              },
+#              {
+#                "type": "uri",
+#                "label": "delete",
+#                "uri": "#",
+#              }
+#            ]
+#          },
+#          {
+#            "imageBackgroundColor": "#FFFFFF",
+#            "title": "#{memos[3].title}",
+#            "text": "#{memos[3].body}",
+#            "actions": [
+#              {
+#                "type": "uri",
+#                "label": "edit",
+#                "uri": "edit",
+#              },
+#              {
+#                "type": "uri",
+#                "label": "delete",
+#                "uri": "#",
+#              }
+#            ]
+#          },
+#          {
+#            "imageBackgroundColor": "#FFFFFF",
+#            "title": "#{memos[4].title}",
+#            "text": "#{memos[4].body}",
+#            "actions": [
+#              {
+#                "type": "uri",
+#                "label": "edit",
+#                "uri": "edit",
+#              },
+#              {
+#                "type": "uri",
+#                "label": "delete",
+#                "uri": "#",
+#              }
+#            ]
+#          }
         ]
       }
     }
