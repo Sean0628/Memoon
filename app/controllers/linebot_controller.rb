@@ -31,14 +31,14 @@ class LinebotController < ApplicationController
           input = event.message['text']
           # display all memos
           case input
-          when input == ('list' || 'リスト' || 'りすと')
+          when input == 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.all
-              message = {
-                type: 'template',
-                altText: 'メモの一覧リスト',
-                template: {
-                  type: 'carousel',
-                  columns: [
+            message = {
+              type: 'template',
+              altText: 'メモの一覧リスト',
+              template: {
+                type: 'carousel',
+                columns: [
                   @memos.each do |memo|
                     {
                       imageBackgroundColor: '#FFFFFF',
@@ -48,7 +48,7 @@ class LinebotController < ApplicationController
                         {
                           type: 'postback',
                           label: 'edit',
-                          data: "#",
+                          data: 'edit',
                         },
                         {
                           type: 'postback',
@@ -58,9 +58,10 @@ class LinebotController < ApplicationController
                       ]
                     }
                   end
-                  ]
-                }
+                ]
               }
+            }
+            client.reply_message(event['replyToken'], message)
           # generate new memos
           else
             # if it includes a title.
@@ -74,7 +75,7 @@ class LinebotController < ApplicationController
               title = "##{input[0..10]}"
               body = input
             end
-            user.memos.create!(title: title, body: body)
+            @user.memos.create!(title: title, body: body)
             message = {
               type: 'text',
               text: '新しくメモを作りました！'
