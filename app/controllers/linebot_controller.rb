@@ -33,34 +33,32 @@ class LinebotController < ApplicationController
           case input
           when input == 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.all
-              message = {
-                type: 'template',
-                altText: 'メモの一覧リスト',
-                template: {
-                  type: 'carousel',
-                  columns: [
-                  @memos.each do |memo|
-                    {
-                      imageBackgroundColor: '#FFFFFF',
-                      title: "#{memo.title}",
-                      text: "#{memo.body}",
-                      actions: [
-                        {
-                          type: 'postback',
-                          label: 'edit',
-                          data: "#",
-                        },
-                        {
-                          type: 'postback',
-                          label: 'delete',
-                          data: '#',
-                        }
-                      ]
-                    }
-                  end
-                  ]
-                }
+            message = {
+              type: 'template',
+              altText: 'メモの一覧リスト',
+              template: {
+                type: 'carousel',
+                columns: [
+                  {
+                    imageBackgroundColor: '#FFFFFF',
+                    title: "#{memo.title}",
+                    text: "#{memo.body}",
+                    actions: [
+                      {
+                        type: 'postback',
+                        label: 'edit',
+                        data: "#",
+                      },
+                      {
+                        type: 'postback',
+                        label: 'delete',
+                        data: '#',
+                      }
+                    ]
+                  }
+                ]
               }
+            }
             client.reply_message(event['replyToken'], message)
           # generate new memos
           else
