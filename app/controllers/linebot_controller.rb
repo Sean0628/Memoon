@@ -82,7 +82,7 @@ end
               {
                 "type": "uri",
                 "label": "edit",
-                "uri": "edit",
+                "uri": "#",
               },
               {
                 "type": "uri",
@@ -90,7 +90,7 @@ end
                 "uri": "#",
               }
             ]
-          },
+          }
 #          {
 #            "imageBackgroundColor": "#FFFFFF",
 #            "title": "#{memos[1].title}",
