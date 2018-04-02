@@ -32,7 +32,7 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when input == 'list' || 'リスト' || 'りすと'
-            @memos = @user.memos.first
+            @memo = @user.memos.first
             message = {
               type: 'template',
               altText: 'メモの一覧リスト',
