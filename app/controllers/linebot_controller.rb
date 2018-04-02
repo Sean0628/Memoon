@@ -32,9 +32,9 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when 'List', 'list', 'リスト', 'りすと'
-            @memos = @user.memos.first
-            p generate_message(@memos)
-            client.reply_message(event['replyToken'], generate_message(@memos))
+            @memo = @user.memos.first
+            p generate_message(@memo)
+            client.reply_message(event['replyToken'], generate_message(@memo))
           # generate new memos
           else
             # if it includes a title.
@@ -50,10 +50,10 @@ class LinebotController < ApplicationController
             end
             @user.memos.create!(title: title, body: body)
             message = {
-              type: "text",
-              text: "新しくメモを作りました！"
+              "type": "text",
+              "text": "新しくメモを作りました！"
             }
-            client.reply_message(event["replyToken"], message)
+            client.reply_message(event['replyToken'], message)
           end
         end
       end
@@ -80,14 +80,14 @@ end
             "text": "#{memos.body}",
             "actions": [
               {
-                "type": "uri",
+                "type": "postback",
                 "label": "edit",
-                "uri": "#",
+                "data": "#",
               },
               {
-                "type": "uri",
+                "type": "postback",
                 "label": "delete",
-                "uri": "#",
+                "data": "#",
               }
             ]
           }
