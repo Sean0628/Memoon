@@ -31,7 +31,7 @@ class LinebotController < ApplicationController
           input = event.message['text']
           # display all memos
           case input
-          when input == ('list' || 'リスト' || 'りすと')
+          when input == 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.all
               message = {
                 type: 'template',
