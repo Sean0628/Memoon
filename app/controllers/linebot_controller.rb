@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  require 'line/bot' # line-bot-api
+  require "line/bot" # line-bot-api
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery except: :callback
@@ -14,26 +14,26 @@ class LinebotController < ApplicationController
   def callback
     body = request.body.read
 
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    signature = request.env["HTTP_X_LINE_SIGNATURE"]
     unless client.validate_signature(body, signature)
-      error 400 do 'Bad Request' end
+      error 400 do "Bad Request" end
     end
 
     events = client.parse_events_from(body)
     events.each { |event|
-      line_id = params['events'][0]['source']['userId']
+      line_id = params["events"][0]["source"]["userId"]
       # generate new user, or find the user if it has already existed.
       @user = User.find_or_create_by!(line_id: line_id)
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          input = event.message['text']
+          input = event.message["text"]
           # display all memos
           case input
-          when input == 'list' || 'リスト' || 'りすと'
+          when input == "list" || "リスト" || "りすと"
             @memos = @user.memos.limit(5)
-            client.reply_message(event['replyToken'], generate_message(@memos))
+            client.reply_message(event["replyToken"], generate_message(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -49,10 +49,10 @@ class LinebotController < ApplicationController
             end
             @user.memos.create!(title: title, body: body)
             message = {
-              type: 'text',
-              text: '新しくメモを作りました！'
+              type: "text",
+              text: "新しくメモを作りました！"
             }
-            client.reply_message(event['replyToken'], message)
+            client.reply_message(event["replyToken"], message)
           end
         end
       end
@@ -62,105 +62,104 @@ end
 
   private
   def has_title?(input)
-    input.start_with?('#' || '＃')
+    input.start_with?("#" || "＃")
   end
 
   # generate massege lists
   def generate_message(memos)
     message = {
-      type: 'template',
-      altText: 'メモの一覧リスト',
-      template: {
-        type: 'carousel',
-        columns: [
+      "type": "template",
+      "altText": "メモの一覧リスト",
+      "template": {
+        "type": "carousel",
+        "columns": [
           {
-            imageBackgroundColor: '#FFFFFF',
-            title: "#{memos[0].title}",
-            text: "#{memos[0].body}",
-            actions: [
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[0].title}",
+            "text": "#{memos[0].body}",
+            "actions": [
               {
-                type: 'uri',
-                label: 'edit',
-                data: 'edit',
+                "type": "uri",
+                "label": "edit",
+                "uri": "edit",
               },
               {
-                type: 'uri',
-                label: 'delete',
-                data: '#',
+                "type": "uri",
+                "label": "delete",
+                "uri": "#",
               }
             ]
           },
           {
-            imageBackgroundColor: '#FFFFFF',
-            title: "#{memos[1].title}",
-            text: "#{memos[1].body}",
-            actions: [
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[1].title}",
+            "text": "#{memos[1].body}",
+            "actions": [
               {
-                type: 'uri',
-                label: 'edit',
-                data: 'edit',
+                "type": "uri",
+                "label": "edit",
+                "uri": "edit",
               },
               {
-                type: 'uri',
-                label: 'delete',
-                data: '#',
+                "type": "uri",
+                "label": "delete",
+                "uri": "#",
               }
             ]
           },
           {
-            imageBackgroundColor: '#FFFFFF',
-            title: "#{memos[2].title}",
-            text: "#{memos[2].body}",
-            actions: [
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[2].title}",
+            "text": "#{memos[2].body}",
+            "actions": [
               {
-                type: 'uri',
-                label: 'edit',
-                data: 'edit',
+                "type": "uri",
+                "label": "edit",
+                "uri": "edit",
               },
               {
-                type: 'uri',
-                label: 'delete',
-                data: '#',
+                "type": "uri",
+                "label": "delete",
+                "uri": "#",
               }
             ]
           },
           {
-            imageBackgroundColor: '#FFFFFF',
-            title: "#{memos[3].title}",
-            text: "#{memos[3].body}",
-            actions: [
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[3].title}",
+            "text": "#{memos[3].body}",
+            "actions": [
               {
-                type: 'uri',
-                label: 'edit',
-                data: 'edit',
+                "type": "uri",
+                "label": "edit",
+                "uri": "edit",
               },
               {
-                type: 'uri',
-                label: 'delete',
-                data: '#',
+                "type": "uri",
+                "label": "delete",
+                "uri": "#",
               }
             ]
           },
           {
-            imageBackgroundColor: '#FFFFFF',
-            title: "#{memos[4].title}",
-            text: "#{memos[4].body}",
-            actions: [
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[4].title}",
+            "text": "#{memos[4].body}",
+            "actions": [
               {
-                type: 'uri',
-                label: 'edit',
-                data: 'edit',
+                "type": "uri",
+                "label": "edit",
+                "uri": "edit",
               },
               {
-                type: 'uri',
-                label: 'delete',
-                data: '#',
+                "type": "uri",
+                "label": "delete",
+                "uri": "#",
               }
             ]
           }
         ],
       }
-    }.to_json
-    p message
+    }
     return message
   end
