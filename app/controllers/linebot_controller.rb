@@ -31,7 +31,7 @@ class LinebotController < ApplicationController
           input = event.message['text']
           # display all memos
           case input
-          when input == 'List' || 'list' || 'リスト' || 'りすと'
+          when 'List' || 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.limit(5)
             p generate_message(@memos)
             client.reply_message(event['replyToken'], generate_message(@memos))
