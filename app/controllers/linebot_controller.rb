@@ -32,7 +32,7 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when 'List', 'list', 'リスト', 'りすと'
-            @memos = @user.memos.limit(5)
+            @memos = @user.memos.first
             p generate_message(@memos)
             client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
@@ -76,8 +76,8 @@ end
         "columns": [
           {
             "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos[0].title}",
-            "text": "#{memos[0].body}",
+            "title": "#{memos.title}",
+            "text": "#{memos.body}",
             "actions": [
               {
                 "type": "uri",
