@@ -30,7 +30,7 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
           # if it includes a title.
-          if has_title?
+          if has_title?(input)
             # gets the title.
             title = input.split("\n")[0]
             # gets the body.
@@ -53,6 +53,6 @@ class LinebotController < ApplicationController
 end
 
   private
-  def has_title?
+  def has_title?(input)
     input.start_with?('#' || '＃')
   end
