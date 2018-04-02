@@ -29,7 +29,17 @@ class LinebotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
-          save_memo(input)
+          # if it includes a title.
+          if has_title?
+            # gets the title.
+            title = input.split("\n")[0]
+            # gets the body.
+            body = input.split("\n").drop(1).join("\n")
+          # if there is not a title
+          else
+            title = "##{input[0..10]}"
+            body = input
+          end
           user.memos.create!(title: title, body: body)
           message = {
             type: 'text',
@@ -42,19 +52,7 @@ class LinebotController < ApplicationController
   end
 end
 
-private
-  def save_memo(input)
-    # if it includes a title.
-    if input.start_with?('#' || '＃')
-      # gets the title.
-      title = input.split("\n")[0]
-      # gets body.
-      body = input.split("\n").drop(1).join("\n")
-    # if there is not a title
-    else
-      title = "##{input[0..10]}"
-      body = input
-    end
-    return title, body
+  private
+  def has_title?
+    input.start_with?('#' || '＃')
   end
-
