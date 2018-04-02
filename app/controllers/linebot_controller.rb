@@ -35,6 +35,7 @@ class LinebotController < ApplicationController
             @memos = @user.memos.limit(5)
             # TO DO: insert message generator
             message = generate_message(@memos)
+            p message
             client.reply_message(event['replyToken'], message)
           # generate new memos
           else
@@ -163,5 +164,6 @@ end
         ]
       }
     }
+    p message
     return message
   end
