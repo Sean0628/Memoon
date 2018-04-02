@@ -23,29 +23,64 @@ class LinebotController < ApplicationController
     events.each { |event|
       line_id = params['events'][0]['source']['userId']
       # generate new user, or find the user if it has already existed.
-      user = User.find_or_create_by!(line_id: line_id)
+      @user = User.find_or_create_by!(line_id: line_id)
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
-          # if it includes a title.
-          if has_title?(input)
-            # gets the title.
-            title = input.split("\n")[0]
-            # gets the body.
-            body = input.split("\n").drop(1).join("\n")
-          # if there is not a title
+          # display all memos
+          case input
+          when input == ('list' || 'リスト' || 'りすと')
+            @memos = @user.memos.all
+              message = {
+                type: 'template',
+                altText: 'メモの一覧リスト',
+                template: {
+                  type: 'carousel',
+                  columns: [
+                  @memos.each do |memo|
+                    {
+                      imageBackgroundColor: '#FFFFFF',
+                      title: "#{memo.title}",
+                      text: "#{memo.body}",
+                      actions: [
+                        {
+                          type: 'postback',
+                          label: 'edit',
+                          data: "#",
+                        },
+                        {
+                          type: 'postback',
+                          label: 'delete',
+                          data: '#',
+                        }
+                      ]
+                    }
+                  end
+                  ]
+                }
+              }
+          # generate new memos
           else
-            title = "##{input[0..10]}"
-            body = input
+            # if it includes a title.
+            if has_title?(input)
+              # gets the title.
+              title = input.split("\n")[0]
+              # gets the body.
+              body = input.split("\n").drop(1).join("\n")
+            # if there is not a title
+            else
+              title = "##{input[0..10]}"
+              body = input
+            end
+            user.memos.create!(title: title, body: body)
+            message = {
+              type: 'text',
+              text: '新しくメモを作りました！'
+            }
+            client.reply_message(event['replyToken'], message)
           end
-          user.memos.create!(title: title, body: body)
-          message = {
-            type: 'text',
-            text: '新しくメモを作りました！'
-          }
-          client.reply_message(event['replyToken'], message)
         end
       end
     }
