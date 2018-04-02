@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  require 'line/bot' # line-bot-api'
+  require 'line/bot' # line-bot-api
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery except: :callback
@@ -32,36 +32,10 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when input == 'list' || 'リスト' || 'りすと'
-            @memos = @user.memos.all
-            @memos.each do |memo|
-              message = {
-                type: 'template',
-                altText: 'メモの一覧リスト',
-                template: {
-                  type: 'carousel',
-                  columns: [
-                      {
-                        imageBackgroundColor: '#FFFFFF',
-                        title: "#{memo.title}",
-                        text: "#{memo.body}",
-                        actions: [
-                          {
-                            type: 'postback',
-                            label: 'edit',
-                            data: 'edit',
-                          },
-                          {
-                            type: 'postback',
-                            label: 'delete',
-                            data: '#',
-                          }
-                        ]
-                      }
-                  ]
-                }
-              }
-              client.reply_message(event['replyToken'], message)
-            end
+            @memos = @user.memos.limit(5)
+            # TO DO: insert message generator
+            generate_message(@memos)
+            client.reply_message(event['replyToken'], message)
           # generate new memos
           else
             # if it includes a title.
@@ -91,4 +65,103 @@ end
   private
   def has_title?(input)
     input.start_with?('#' || '＃')
+  end
+
+  # generate massege lists
+  def generate_message(memos)
+    message = {
+      type: 'template',
+      altText: 'メモの一覧リスト',
+      template: {
+        type: 'carousel',
+        columns: [
+          {
+            imageBackgroundColor: '#FFFFFF',
+            title: "#{memos[0].title}",
+            text: "#{memos[0].body}",
+            actions: [
+              {
+                type: 'uri',
+                label: 'edit',
+                data: 'edit',
+              },
+              {
+                type: 'uri',
+                label: 'delete',
+                data: '#',
+              }
+            ]
+          },
+          {
+            imageBackgroundColor: '#FFFFFF',
+            title: "#{memos[1].title}",
+            text: "#{memos[1].body}",
+            actions: [
+              {
+                type: 'uri',
+                label: 'edit',
+                data: 'edit',
+              },
+              {
+                type: 'uri',
+                label: 'delete',
+                data: '#',
+              }
+            ]
+          },
+          {
+            imageBackgroundColor: '#FFFFFF',
+            title: "#{memos[2].title}",
+            text: "#{memos[2].body}",
+            actions: [
+              {
+                type: 'uri',
+                label: 'edit',
+                data: 'edit',
+              },
+              {
+                type: 'uri',
+                label: 'delete',
+                data: '#',
+              }
+            ]
+          },
+          {
+            imageBackgroundColor: '#FFFFFF',
+            title: "#{memos[3].title}",
+            text: "#{memos[3].body}",
+            actions: [
+              {
+                type: 'uri',
+                label: 'edit',
+                data: 'edit',
+              },
+              {
+                type: 'uri',
+                label: 'delete',
+                data: '#',
+              }
+            ]
+          },
+          {
+            imageBackgroundColor: '#FFFFFF',
+            title: "#{memos[4].title}",
+            text: "#{memos[4].body}",
+            actions: [
+              {
+                type: 'uri',
+                label: 'edit',
+                data: 'edit',
+              },
+              {
+                type: 'uri',
+                label: 'delete',
+                data: '#',
+              }
+            ]
+          }
+        ]
+      }
+    }
+    return message
   end
