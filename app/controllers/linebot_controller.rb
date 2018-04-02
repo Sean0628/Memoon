@@ -74,7 +74,7 @@ class LinebotController < ApplicationController
               title = "##{input[0..10]}"
               body = input
             end
-            user.memos.create!(title: title, body: body)
+            @user.memos.create!(title: title, body: body)
             message = {
               type: 'text',
               text: '新しくメモを作りました！'
