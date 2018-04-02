@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  require "line/bot" # line-bot-api
+  require 'line/bot' # line-bot-api
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery except: :callback
@@ -14,26 +14,27 @@ class LinebotController < ApplicationController
   def callback
     body = request.body.read
 
-    signature = request.env["HTTP_X_LINE_SIGNATURE"]
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
-      error 400 do "Bad Request" end
+      error 400 do 'Bad Request' end
     end
 
     events = client.parse_events_from(body)
     events.each { |event|
-      line_id = params["events"][0]["source"]["userId"]
+      line_id = params['events'][0]['source']['userId']
       # generate new user, or find the user if it has already existed.
       @user = User.find_or_create_by!(line_id: line_id)
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          input = event.message["text"]
+          input = event.message['text']
           # display all memos
           case input
-          when input == "list" || "リスト" || "りすと"
+          when input == 'List' || 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.limit(5)
-            client.reply_message(event["replyToken"], generate_message(@memos))
+            p generate_message(@memos)
+            client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -62,7 +63,7 @@ end
 
   private
   def has_title?(input)
-    input.start_with?("#" || "＃")
+    input.start_with?('#' || '＃')
   end
 
   # generate massege lists
@@ -158,7 +159,7 @@ end
               }
             ]
           }
-        ],
+        ]
       }
     }
     return message
