@@ -34,8 +34,7 @@ class LinebotController < ApplicationController
           when input == 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.limit(5)
             # TO DO: insert message generator
-            generate_message(@memos)
-            client.reply_message(event['replyToken'], message)
+            client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
             # if it includes a title.
