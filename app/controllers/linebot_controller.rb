@@ -61,6 +61,7 @@ class LinebotController < ApplicationController
                   ]
                 }
               }
+            client.reply_message(event['replyToken'], message)
           # generate new memos
           else
             # if it includes a title.
