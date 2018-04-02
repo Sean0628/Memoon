@@ -33,10 +33,7 @@ class LinebotController < ApplicationController
           case input
           when input == 'list' || 'リスト' || 'りすと'
             @memos = @user.memos.limit(5)
-            message = generate_message(@memos)
-            p message
-            p generate_message(@memos)
-            client.reply_message(event['replyToken'], message)
+            client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -163,6 +160,7 @@ end
           }
         ],
       }
-    }
+    }.to_json
+    p message
     return message
   end
