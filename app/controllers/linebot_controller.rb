@@ -32,9 +32,9 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when 'List', 'list', 'リスト', 'りすと'
-            @memo = @user.memos.first
-            p generate_message(@memo)
-            client.reply_message(event['replyToken'], generate_message(@memo))
+            @memos = @user.memos.limit(5)
+            p generate_message(@memos)
+            client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -76,8 +76,8 @@ end
         "columns": [
           {
             "imageBackgroundColor": "#FFFFFF",
-            "title": "#{memos.title}",
-            "text": "#{memos.body}",
+            "title": "#{memos[0].title}",
+            "text": "#{memos[0].body}",
             "actions": [
               {
                 "type": "postback",
@@ -90,75 +90,75 @@ end
                 "data": "#",
               }
             ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[1].title}",
+            "text": "#{memos[1].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[2].title}",
+            "text": "#{memos[2].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[3].title}",
+            "text": "#{memos[3].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
+          },
+          {
+            "imageBackgroundColor": "#FFFFFF",
+            "title": "#{memos[4].title}",
+            "text": "#{memos[4].body}",
+            "actions": [
+              {
+                "type": "postback",
+                "label": "edit",
+                "data": "edit",
+              },
+              {
+                "type": "postback",
+                "label": "delete",
+                "data": "#",
+              }
+            ]
           }
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[1].title}",
-#            "text": "#{memos[1].body}",
-#            "actions": [
-#              {
-#                "type": "uri",
-#                "label": "edit",
-#                "uri": "edit",
-#              },
-#              {
-#                "type": "uri",
-#                "label": "delete",
-#                "uri": "#",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[2].title}",
-#            "text": "#{memos[2].body}",
-#            "actions": [
-#              {
-#                "type": "uri",
-#                "label": "edit",
-#                "uri": "edit",
-#              },
-#              {
-#                "type": "uri",
-#                "label": "delete",
-#                "uri": "#",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[3].title}",
-#            "text": "#{memos[3].body}",
-#            "actions": [
-#              {
-#                "type": "uri",
-#                "label": "edit",
-#                "uri": "edit",
-#              },
-#              {
-#                "type": "uri",
-#                "label": "delete",
-#                "uri": "#",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[4].title}",
-#            "text": "#{memos[4].body}",
-#            "actions": [
-#              {
-#                "type": "uri",
-#                "label": "edit",
-#                "uri": "edit",
-#              },
-#              {
-#                "type": "uri",
-#                "label": "delete",
-#                "uri": "#",
-#              }
-#            ]
-#          }
         ]
       }
     }
