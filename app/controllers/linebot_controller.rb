@@ -55,5 +55,6 @@ private
       title = "##{input[0..10]}"
       body = input
     end
+    return title, body
   end
 
