@@ -80,13 +80,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "#",
+                "label": "編集",
+                "data": "edit#{memos[0].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[0].id}",
               }
             ]
           },
@@ -97,13 +97,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[1].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[1].id}",
               }
             ]
           },
@@ -114,13 +114,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[2].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[2].id}",
               }
             ]
           },
@@ -131,13 +131,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[3].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[3].id}",
               }
             ]
           },
@@ -148,13 +148,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[4].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[4].id}",
               }
             ]
           },
@@ -165,13 +165,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[5].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[5].id}",
               }
             ]
           },
@@ -182,13 +182,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[6].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[6].id}",
               }
             ]
           },
@@ -199,13 +199,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[7].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[7].id}",
               }
             ]
           },
@@ -216,13 +216,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[8].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[8].id}",
               }
             ]
           },
@@ -233,13 +233,13 @@ class LinebotController < ApplicationController
             "actions": [
               {
                 "type": "postback",
-                "label": "edit",
-                "data": "edit",
+                "label": "編集",
+                "data": "edit&#{memos[9].id}",
               },
               {
                 "type": "postback",
-                "label": "delete",
-                "data": "#",
+                "label": "削除",
+                "data": "delete&#{memos[9].id}",
               }
             ]
           },
