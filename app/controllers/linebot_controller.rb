@@ -141,12 +141,14 @@ class LinebotController < ApplicationController
   def generate_list(memos)
     partition = "---------------------------------"
     text = ""
-    memos.each do |memo|
-      text << "#{memo.title}\n"
+    unless memos.empty?
+      memos.each do |memo|
+        text << "- #{memo.title}\n"
+      end
+      text << "\n#{partition}表示したいメモのタイトルをメッセージとして送信してください。\n#{partition}"
+    else
+      text = "現在メモはありません。"
     end
-    text << "\n#{partition}
-              表示したいメモのタイトルをメッセージとして送信してください。
-              \n#{partition}"
     lists = {
       "type": "text",
       "text": text
