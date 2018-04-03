@@ -62,7 +62,13 @@ class LinebotController < ApplicationController
             if has_title?(input)
               # gets the title.
               title = input.split("\n")[0]
-              # gets the body.
+              # if title has alreadey existed
+              if @user.memos.exists?(title: title)
+                @memo = @user.memos.find_by(title: title)
+                client.reply_message(event['replyToken'], generate_btn(@memo))
+                exit
+              end
+              # gets the body
               body = input.split("\n").drop(1).join("\n")
             # if there is not a title
             else
@@ -151,6 +157,27 @@ class LinebotController < ApplicationController
       "text": text
     }
     lists
+  end
+
+  # generate message for button template
+  def generate_btn(memo)
+    message = {
+      "type": "template",
+      "altText": "#{memo.title}",
+      "template": {
+        "type": "buttons",
+        "title": "#{memo.title}",
+        "text": "#{memo.body}",
+        "actions": [
+          {
+            "type": "postback",
+            "label": "削除",
+            "data": "#{memo.id}",
+          }
+        ]
+      }
+    }
+    message
   end
 
   # generate message for the case of error
