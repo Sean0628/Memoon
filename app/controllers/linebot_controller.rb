@@ -273,6 +273,6 @@ class LinebotController < ApplicationController
         ]
       }
     }
-    return message
+    message
   end
 end
