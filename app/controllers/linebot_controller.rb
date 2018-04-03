@@ -13,12 +13,10 @@ class LinebotController < ApplicationController
 
   def callback
     body = request.body.read
-
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
-
     events = client.parse_events_from(body)
     events.each { |event|
       line_id = params['events'][0]['source']['userId']
@@ -28,26 +26,22 @@ class LinebotController < ApplicationController
       # delete action
       when Line::Bot::Event::Postback
         # take the action and the memo id from parameters
-        action = params['events'][0]['postback']['data'].split('&')[0]
-        memo_id = params['events'][0]['postback']['data'].split('&')[1]
-        if action == "delete"
-          @memo = Memo.find(memo_id)
-          # if successfully deleted
-          if memo_owner?(@memo, @user)
-            if @memo.destroy!
-              message = {
-                "type": "text",
-                "text": "メモを削除しました！"
-              }
-            # cannot delete memo
-            else
-              message = {
-                "type": "text",
-                "text": "エラーが発生しました。"
-              }
-            end
-            client.reply_message(event['replyToken'], message)
+        memo_id = params['events'][0]['postback']['data']
+        @memo = Memo.find(memo_id)
+        # if successfully deleted
+        if @memo && memo_owner?(@memo, @user)
+          if @memo.destroy!
+            message = {
+              "type": "text",
+              "text": "メモを削除しました！"
+            }
+          # cannot delete memo
+          else
+            generate_error
           end
+          client.reply_message(event['replyToken'], message)
+        else
+          client.reply_message(event['replyToken'], generate_error)
         end
       when Line::Bot::Event::Message
         case event.type
@@ -75,11 +69,14 @@ class LinebotController < ApplicationController
               title = "##{input[0..10]}"
               body = input
             end
-            @user.memos.create!(title: title, body: body)
-            message = {
-              "type": "text",
-              "text": "新しくメモを作りました！"
-            }
+            if @user.memos.create!(title: title, body: body)
+              message = {
+                "type": "text",
+                "text": "新しくメモを作りました！"
+              }
+            else
+              generate_error
+            end
             client.reply_message(event['replyToken'], message)
           end
         end
@@ -130,7 +127,7 @@ class LinebotController < ApplicationController
         {
           "type": "postback",
           "label": "削除",
-          "data": "delete&#{memo.id}",
+          "data": "#{memo.id}",
         }
       ]
     }
@@ -154,5 +151,14 @@ class LinebotController < ApplicationController
       "text": text
     }
     lists
+  end
+
+  # generate message for the case of error
+  def generate_error
+    message = {
+      "type": "text",
+      "text": "エラーが発生しました。"
+    }
+    message
   end
 end
