@@ -66,7 +66,7 @@ class LinebotController < ApplicationController
               if @user.memos.exists?(title: title)
                 @memo = @user.memos.find_by(title: title)
                 client.reply_message(event['replyToken'], generate_btn(@memo))
-                exit
+                exit!
               end
               # gets the body
               body = input.split("\n").drop(1).join("\n")
@@ -143,12 +143,12 @@ class LinebotController < ApplicationController
   # generate lists with all memo's title
   def generate_list(memos)
     partition = "---------------------------------"
-    text = ""
+    text = "メモ一覧\n"
     unless memos.empty?
       memos.each do |memo|
         text << "- #{memo.title}\n"
       end
-      text << "\n#{partition}表示したいメモのタイトルをメッセージとして送信してください。\n#{partition}"
+      text << "\n#{partition}表示したいメモのタイトルをメッセージとして送信してください。\n例）#サンプルタイトル\n#{partition}"
     else
       text = "現在メモはありません。"
     end
