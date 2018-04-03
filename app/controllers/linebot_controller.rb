@@ -94,7 +94,7 @@ class LinebotController < ApplicationController
 
   # generate massege lists
   def generate_message(memos)
-    unless memos.nil?
+    unless memos.empty?
       columns = []
         memos.each do |memo|
           columns << generate_column(memo)
