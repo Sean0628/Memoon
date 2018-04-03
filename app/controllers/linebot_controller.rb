@@ -25,7 +25,7 @@ class LinebotController < ApplicationController
       # generate new user, or find the user if it has already existed.
       @user = User.find_or_create_by!(line_id: line_id)
       case event
-      # delete or edit action
+      # delete action
       when Line::Bot::Event::Postback
         # take the action and the memo id from parameters
         action = params['events'][0]['postback']['data'].split('&')[0]
@@ -58,6 +58,10 @@ class LinebotController < ApplicationController
           when 'List', 'list', 'LIST', 'リスト', 'りすと'
             @memos = @user.memos.order('created_at DESC').limit(10)
             client.reply_message(event['replyToken'], generate_carousel(@memos))
+          # display all memos in descending order
+          when 'All', 'all', 'ALL', '一覧', '全て', 'すべて'
+            @memos = @user.memos.order('created_at DESC')
+            client.reply_message(event['replyToken'], generate_list(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -123,11 +127,6 @@ class LinebotController < ApplicationController
       "title": "#{memo.title}",
       "text": "#{memo.body}",
       "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memo.id}",
-#              },
         {
           "type": "postback",
           "label": "削除",
@@ -136,5 +135,22 @@ class LinebotController < ApplicationController
       ]
     }
     column
+  end
+
+  # generate lists with all memo's title
+  def generate_list(memos)
+    partition = "---------------------------------"
+    text = ""
+    memos.each do |memo|
+      text << "#{memo.title}\n"
+    end
+    text << "\n#{partition}
+              表示したいメモのタイトルをメッセージとして送信してください。
+              \n#{partition}"
+    lists = {
+      "type": "text",
+      "text": text
+    }
+    lists
   end
 end
