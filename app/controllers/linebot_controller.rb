@@ -21,10 +21,34 @@ class LinebotController < ApplicationController
 
     events = client.parse_events_from(body)
     events.each { |event|
-      line_id = params['events'][0]['source']['userId']
+      line_id = event.source['userId']
       # generate new user, or find the user if it has already existed.
       @user = User.find_or_create_by!(line_id: line_id)
       case event
+      # delete or edit action
+      when Line::Bot::Event::Postback
+        # take the action and the memo id from parameters
+        action = event.postback['data'].split('&')[0]
+        memo_id = event.postback['data'].split('&')[1]
+        if action == "delete"
+          @memo = Memo.find(memo_id)
+          # if successfully deleted
+          if memo_owner?(@memo, @user)
+            if @memo.destroy!
+              message = {
+                "type": "text",
+                "text": "メモを削除しました！"
+              }
+            # cannot delete memo
+            else
+              message = {
+                "type": "text",
+                "text": "エラーが発生しました。"
+              }
+            end
+            client.reply_message(event['replyToken'], message)
+          end
+        end
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
@@ -33,7 +57,6 @@ class LinebotController < ApplicationController
           case input
           when 'List', 'list', 'LIST', 'リスト', 'りすと'
             @memos = @user.memos.limit(10)
-            p generate_message(@memos)
             client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
@@ -63,6 +86,10 @@ class LinebotController < ApplicationController
   private
   def has_title?(input)
     input.start_with?('#' || '＃')
+  end
+
+  def memo_owner?(memo, user)
+    memo.user.line_id == user.line_id
   end
 
   # generate massege lists
