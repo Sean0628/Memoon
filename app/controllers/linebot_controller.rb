@@ -27,7 +27,7 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Postback
         # take the action and the memo id from parameters
         memo_id = params['events'][0]['postback']['data']
-        @memo = Memo.find(memo_id)
+        @memo = Memo.find(memo_id) if Memo.exists?(id: memo_id)
         # if successfully deleted
         if @memo && memo_owner?(@memo, @user)
           if @memo.destroy!
