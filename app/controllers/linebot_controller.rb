@@ -53,11 +53,11 @@ class LinebotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           input = event.message['text']
-          # display all memos
+          # display 10 new memos
           case input
           when 'List', 'list', 'LIST', 'リスト', 'りすと'
             @memos = @user.memos.order('created_at DESC').limit(10)
-            client.reply_message(event['replyToken'], generate_message(@memos))
+            client.reply_message(event['replyToken'], generate_carousel(@memos))
           # generate new memos
           else
             # if it includes a title.
@@ -93,7 +93,7 @@ class LinebotController < ApplicationController
   end
 
   # generate massege lists
-  def generate_message(memos)
+  def generate_carousel(memos)
     unless memos.empty?
       columns = []
         memos.each do |memo|
@@ -116,6 +116,7 @@ class LinebotController < ApplicationController
     message
   end
 
+  # generate column lists
   def generate_column(memo)
     column = {
       "imageBackgroundColor": "#FFFFFF",
