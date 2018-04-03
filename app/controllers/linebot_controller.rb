@@ -28,8 +28,8 @@ class LinebotController < ApplicationController
       # delete or edit action
       when Line::Bot::Event::Postback
         # take the action and the memo id from parameters
-        action = event.postback['data'].split('&')[0]
-        memo_id = event.postback['data'].split('&')[1]
+        action = event.data.split('&')[0]
+        memo_id = event.data.split('&')[1]
         if action == "delete"
           @memo = Memo.find(memo_id)
           # if successfully deleted
