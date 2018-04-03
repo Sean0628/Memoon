@@ -56,7 +56,7 @@ class LinebotController < ApplicationController
           # display all memos
           case input
           when 'List', 'list', 'LIST', 'リスト', 'りすと'
-            @memos = @user.memos.limit(10)
+            @memos = @user.memos.order('created_at DESC').limit(10)
             client.reply_message(event['replyToken'], generate_message(@memos))
           # generate new memos
           else
