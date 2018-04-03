@@ -78,11 +78,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[0].title}",
             "text": "#{memos[0].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit#{memos[0].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit#{memos[0].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -95,11 +95,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[1].title}",
             "text": "#{memos[1].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[1].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[1].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -112,11 +112,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[2].title}",
             "text": "#{memos[2].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[2].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[2].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -129,11 +129,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[3].title}",
             "text": "#{memos[3].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[3].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[3].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -146,11 +146,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[4].title}",
             "text": "#{memos[4].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[4].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[4].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -163,11 +163,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[5].title}",
             "text": "#{memos[5].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[5].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[5].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -180,11 +180,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[6].title}",
             "text": "#{memos[6].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[6].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[6].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -197,11 +197,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[7].title}",
             "text": "#{memos[7].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[7].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[7].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -214,11 +214,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[8].title}",
             "text": "#{memos[8].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[8].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[8].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
@@ -231,11 +231,11 @@ class LinebotController < ApplicationController
             "title": "#{memos[9].title}",
             "text": "#{memos[9].body}",
             "actions": [
-              {
-                "type": "postback",
-                "label": "編集",
-                "data": "edit&#{memos[9].id}",
-              },
+#              {
+#                "type": "postback",
+#                "label": "編集",
+#                "data": "edit&#{memos[9].id}",
+#              },
               {
                 "type": "postback",
                 "label": "削除",
