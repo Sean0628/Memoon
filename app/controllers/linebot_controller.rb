@@ -94,191 +94,25 @@ class LinebotController < ApplicationController
 
   # generate massege lists
   def generate_message(memos)
-    columns = []
     unless memos.nil?
-      memos.each do |memo|
-        columns << generate_column(memo)
-      end
-    end
-    message = {
-      "type": "template",
-      "altText": "メモの一覧リスト",
-      "template": {
-        "type": "carousel",
-        "columns": columns
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[0].title}",
-#            "text": "#{memos[0].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit#{memos[0].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[0].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[1].title}",
-#            "text": "#{memos[1].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[1].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[1].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[2].title}",
-#            "text": "#{memos[2].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[2].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[2].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[3].title}",
-#            "text": "#{memos[3].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[3].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[3].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[4].title}",
-#            "text": "#{memos[4].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[4].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[4].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[5].title}",
-#            "text": "#{memos[5].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[5].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[5].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[6].title}",
-#            "text": "#{memos[6].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[6].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[6].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[7].title}",
-#            "text": "#{memos[7].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[7].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[7].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[8].title}",
-#            "text": "#{memos[8].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[8].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[8].id}",
-#              }
-#            ]
-#          },
-#          {
-#            "imageBackgroundColor": "#FFFFFF",
-#            "title": "#{memos[9].title}",
-#            "text": "#{memos[9].body}",
-#            "actions": [
-#              {
-#                "type": "postback",
-#                "label": "編集",
-#                "data": "edit&#{memos[9].id}",
-#              },
-#              {
-#                "type": "postback",
-#                "label": "削除",
-#                "data": "delete&#{memos[9].id}",
-#              }
-#            ]
-#          }
-#        ]
+      columns = []
+        memos.each do |memo|
+          columns << generate_column(memo)
+        end
+      message = {
+        "type": "template",
+        "altText": "メモのリスト",
+        "template": {
+          "type": "carousel",
+          "columns": columns
+        }
       }
-    }
+    else
+      message = {
+        "type": "text",
+        "text": "現在メモはありません。"
+      }
+    end
     message
   end
 
