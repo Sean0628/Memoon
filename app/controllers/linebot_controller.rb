@@ -143,7 +143,7 @@ class LinebotController < ApplicationController
   # generate lists with all memo's title
   def generate_list(memos)
     partition = "---------------------------------"
-    text = "メモ一覧\n"
+    text = "メモ一覧\n\n"
     unless memos.empty?
       memos.each do |memo|
         text << "- #{memo.title}\n"
