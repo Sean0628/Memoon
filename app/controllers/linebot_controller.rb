@@ -49,6 +49,8 @@ class LinebotController < ApplicationController
           input = event.message['text']
           # display 10 new memos
           case input.strip
+          when 'Help', 'help', 'HELP', 'ヘルプ', 'へるぷ'
+            exit!
           when 'List', 'list', 'LIST', 'リスト', 'りすと'
             @memos = @user.memos.order('created_at DESC').limit(10)
             client.reply_message(event['replyToken'], generate_carousel(@memos))
